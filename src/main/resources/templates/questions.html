@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anamnese - DIGRAD </title>
+    <link rel="stylesheet" href="/static/css/styles.css"> <!-- Path to CSS file -->
+</head>
+<body>
+<!-- Header Section -->
+<header>
+    <div class="header-container">
+        <img src="/static/images/LogoFinal.png" alt="DIGRADLogo" class="logo"> <!-- Path to logo image -->
+        <h1>DIGRAD _ DIE DIgitale Lösung für die RADiologische Anamnese</h1>
+    </div>
+</header>
+
+<!-- Main Content Section -->
+<main>
+    <div class="question-container">
+        <h2>Questionnaire</h2>
+        <form action="/submit-answers" method="post">
+            <div th:each="question, iterStat : ${questions}" class="form-group">
+                <label th:for="'question' + ${iterStat.index}" th:text="'Question ' + ${iterStat.index + 1} + ':'"></label>
+                <p th:text="${question.text}"></p>
+                <textarea th:id="'answer' + ${iterStat.index}" th:name="'answer' + ${iterStat.index}" rows="4" cols="50" required></textarea>
+            </div>
+            <div class="form-group">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</main>
+
+<!-- Footer Section -->
+<footer>
+    <div class="footer-container">
+        <p>&copy; 2024 DIGRAD. Alle Rechte vorbehalten.</p>
+        <ul class="footer-links">
+            <li><a href="/css//help">Help</a></li>
+            <li><a href="/css/logout">Logout</a></li>
+        </ul>
+    </div>
+</footer>
+</body>
+</html>

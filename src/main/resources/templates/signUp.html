@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrierung - DIGRAD </title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="de">
+<!-- Header Section -->
+<header>
+    <div class="header-container">
+        <img th:src="@{/images/LogoFinal.png}" alt= "DIGRADLogo" class="logo">
+        <h1>DIGRAD - DIE DIgitale Lösung für die RADiologische Anamnese </h1>
+
+    </div>
+</header>
+<body>
+<!-- Main Content Section -->
+<main>
+    <div class="signup-container">
+        <h2>Registrierung</h2>
+        <form action="/signUp" method="post">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="confirm-password">Confirm Password:</label>
+                <input type="password" id="confirm-password" name="confirm-password" required>
+            </div>
+            <div class="form-group">
+                <button type="submit">Sign Up</button>
+            </div>
+        </form>
+        <p>Sie sind bereits registriert? <a href="/logIn">Login here</a></p>
+    </div>
+</main>
+
+<!-- Footer Section -->
+<footer>
+    <div class="footer-container">
+        <p>&copy; 2024 DIGRAD . Alle Rechte vorbehalten.</p>
+        <ul class="footer-links">
+            <li><a href="/css/help.css">Help</a></li>
+            <li><a href="/css/login.css">Login</a></li>
+        </ul>
+    </div>
+</footer>
+</body>
+</html>

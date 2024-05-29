@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - DIGRAD </title>
+    <link rel="stylesheet" href="/static/css/styles.css"> <!-- Path to CSS file -->
+</head>
+<body>
+<!-- Header Section -->
+<header>
+    <div class="header-container">
+        <img src="/static/images/LogoFinal.png" alt= "RADDIGLogo" class="logo"> <!-- Path to logo image -->
+        <h1>DIGRAD _ DIE DIgitale Lösung für die RADiologische Anamnese</h1>
+    </div>
+</header>
+
+<!-- Main Content Section -->
+<main>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form action="/login" method="post">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <button type="submit">Login</button>
+            </div>
+        </form>
+        <p> Zum ersten Mal hier? <a href="/signup">Registrieren</a></p>
+    </div>
+</main>
+
+<!-- Footer Section -->
+<footer>
+    <div class="footer-container">
+        <p>&copy; 2024 DIGRAD. Alle Rechte vorbehalten.</p>
+        <ul class="footer-links">
+            <li><a href="/help">Help</a></li>
+            <li><a href="/signup">Sign Up</a></li>
+        </ul>
+    </div>
+</footer>
+</body>
+</html>
+
