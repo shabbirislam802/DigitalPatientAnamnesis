@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questionnaire Details - Radiology Anamnesis Web Application</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            margin: 0;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f0f2f5;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        header {
+            width: 100%;
+            background: linear-gradient(90deg, #0056b3 0%, #0096c7 100%);
+            padding: 10px 0;
+            text-align: center;
+            color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80px;
+        }
+        .header-container {
+            display: flex;
+            align-items: center;
+        }
+        .header-container .logo {
+            width: 80px;
+            height: auto;
+            margin-right: 10px;
+        }
+        .content-container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-top: 140px;
+            max-width: 800px;
+            width: 100%;
+            color: #333;
+        }
+        h2 {
+            color: #0056b3;
+            font-size: 2em;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+        footer {
+            width: 100%;
+            background-color: #f8f9fa;
+            padding: 10px 0;
+            text-align: center;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .footer-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .footer-container p {
+            margin: 0;
+            color: #777;
+        }
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0 0 0;
+            display: flex;
+            gap: 15px;
+        }
+        .footer-links li {
+            display: inline;
+        }
+        .footer-links a {
+            color: #0056b3;
+            text-decoration: none;
+        }
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="header-container">
+        <img src="/images/LogoFinal.png" alt="Radiology Anamnesis Logo" class="logo">
+        <h1>Radiology Anamnesis Web Application</h1>
+    </div>
+</header>
+<main>
+    <div class="content-container">
+        <h2>General Questions</h2>
+        <p><strong>First Name:</strong> <span th:text="${generalAnswers.firstname}"></span></p>
+        <p><strong>Last Name:</strong> <span th:text="${generalAnswers.lastname}"></span></p>
+        <p><strong>Date of Birth:</strong> <span th:text="${generalAnswers.dateOfBirth}"></span></p>
+        <p><strong>Gender:</strong> <span th:text="${generalAnswers.gender}"></span></p>
+        <p><strong>Address:</strong> <span th:text="${generalAnswers.address}"></span></p>
+        <p><strong>Telephone Number:</strong> <span th:text="${generalAnswers.telephoneNumber}"></span></p>
+        <p><strong>Body Weight:</strong> <span th:text="${generalAnswers.bodyWeight}"></span></p>
+        <p><strong>Body Height:</strong> <span th:text="${generalAnswers.bodyHeight}"></span></p>
+
+        <h2>Specific Questions</h2>
+        <p><strong>Medical History:</strong> <span th:text="${specificAnswers.medicalHistory}"></span></p>
+        <p><strong>Previous Radiological Procedures:</strong> <span th:text="${specificAnswers.previousRadiologicalProcedures}"></span></p>
+        <p><strong>Known Allergies:</strong> <span th:text="${specificAnswers.knownAllergies}"></span></p>
+        <p><strong>Anticoagulant Medication:</strong> <span th:text="${specificAnswers.anticoagulantMedication}"></span></p>
+        <p><strong>Metal Implants:</strong> <span th:text="${specificAnswers.metalImplants}"></span></p>
+        <p><strong>Cardiovascular Diseases:</strong> <span th:text="${specificAnswers.cardiovascularDiseases}"></span></p>
+        <p><strong>Pulmonary Airway Disease:</strong> <span th:text="${specificAnswers.pulmonaryAirwayDisease}"></span></p>
+        <p><strong>Malignant Disease:</strong> <span th:text="${specificAnswers.malignantDisease}"></span></p>
+        <p><strong>Metabolic Disease:</strong> <span th:text="${specificAnswers.metabolicDisease}"></span></p>
+        <p><strong>Liver Disease:</strong> <span th:text="${specificAnswers.liverDisease}"></span></p>
+        <p><strong>Gastrointestinal Disease:</strong> <span th:text="${specificAnswers.gastrointestinalDisease}"></span></p>
+        <p><strong>Chemotherapy:</strong> <span th:text="${specificAnswers.chemotherapy}"></span></p>
+        <p><strong>Pregnant:</strong> <span th:text="${specificAnswers.pregnant}"></span></p>
+        <p><strong>Breastfeeding:</strong> <span th:text="${specificAnswers.breastfeeding}"></span></p>
+        <p><strong>Kidney X-Ray:</strong> <span th:text="${specificAnswers.kidneyXRay}"></span></p>
+        <p><strong>Leg Veins Depiction:</strong> <span th:text="${specificAnswers.legVeinsDepiction}"></span></p>
+        <p><strong>Blood Vessel X-Ray:</strong> <span th:text="${specificAnswers.bloodVesselXRay}"></span></p>
+        <p><strong>Adverse Reactions:</strong> <span th:text="${specificAnswers.adverseReactions}"></span></p>
+        <p><strong>Adverse Reactions Details:</strong> <span th:text="${specificAnswers.adverseReactionsDetails}"></span></p>
+        <p><strong>Prior Allergic Reaction:</strong> <span th:text="${specificAnswers.priorAllergicReaction}"></span></p>
+        <p><strong>Nausea:</strong> <span th:text="${specificAnswers.nausea}"></span></p>
+        <p><strong>Asthma Attack:</strong> <span th:text="${specificAnswers.asthmaAttack}"></span></p>
+        <p><strong>Skin Rash:</strong> <span th:text="${specificAnswers.skinRash}"></span></p>
+        <p><strong>Seizures:</strong> <span th:text="${specificAnswers.seizures}"></span></p>
+        <p><strong>Chills:</strong> <span th:text="${specificAnswers.chills}"></span></p>
+        <p><strong>Diagnosed Asthma:</strong> <span th:text="${specificAnswers.diagnosedAsthma}"></span></p>
+        <p><strong>Iodine Allergy:</strong> <span th:text="${specificAnswers.iodineAllergy}"></span></p>
+        <p><strong>Thyroid Gland Diagnosis:</strong> <span th:text="${specificAnswers.thyroidGlandDiagnosis}"></span></p>
+        <p><strong>TSH Result:</strong> <span th:text="${specificAnswers.TSHResult}"></span></p>
+        <p><strong>Diabetes Mellitus:</strong> <span th:text="${specificAnswers.diabetesMellitus}"></span></p>
+        <p><strong>Take Metformin:</strong> <span th:text="${specificAnswers.takeMetformin}"></span></p>
+        <p><strong>Additional Info Metformin:</strong> <span th:text="${specificAnswers.additionalInfoMetformin}"></span></p>
+        <p><strong>Kidney Disease:</strong> <span th:text="${specificAnswers.kidneyDisease}"></span></p>
+        <p><strong>Renal Insufficiency:</strong> <span th:text="${specificAnswers.renalInsufficiency}"></span></p>
+        <p><strong>Kidney Transplant:</strong> <span th:text="${specificAnswers.kidneyTransplant}"></span></p>
+        <p><strong>Kidney Dysfunction Dialysis:</strong> <span th:text="${specificAnswers.kidneyDysfunctionDyalisis}"></span></p>
+        <p><strong>Kidney Cancer:</strong> <span th:text="${specificAnswers.kidneyCancer}"></span></p>
+        <p><strong>Creatinine Result:</strong> <span th:text="${specificAnswers.creatinineResult}"></span></p>
+        <p><strong>Additional Info Creatinine:</strong> <span th:text="${specificAnswers.additionalInfoCreatinine}"></span></p>
+        <p><strong>Kahler's Disease:</strong> <span th:text="${specificAnswers.kahlersDisease}"></span></p>
+        <p><strong>Diagnosed Thyroid Disease:</strong> <span th:text="${specificAnswers.diagnosedThyroidDisease}"></span></p>
+        <p><strong>Pacemaker:</strong> <span th:text="${specificAnswers.pacemaker}"></span></p>
+        <p><strong>Pacemaker Brand:</strong> <span th:text="${specificAnswers.pacemakerBrand}"></span></p>
+        <p><strong>Pacemaker Placement Year:</strong> <span th:text="${specificAnswers.pacemakerPlacementYear}"></span></p>
+        <p><strong>Claustrophobia:</strong> <span th:text="${specificAnswers.claustrophobia}"></span></p>
+
+        <h2>Aftercare Information</h2>
+        <p th:if="${aftercare != null}">
+            <strong>IV Contrast:</strong> <span th:text="${aftercare.ivContrast}"></span><br>
+            <strong>Extravasation:</strong> <span th:text="${aftercare.extravasation}"></span><br>
+            <strong>Diabetes:</strong> <span th:text="${aftercare.diabetes}"></span><br>
+            <strong>Sedative:</strong> <span th:text="${aftercare.sedative}"></span>
+        </p>
+        <p th:if="${aftercare == null}">No aftercare information available.</p>
+    </div>
+</main>
+<footer>
+    <div class="footer-container">
+        <p>&copy; 2024 Radiology Anamnesis Web Application. All rights reserved.</p>
+        <ul class="footer-links">
+            <li><a th:href="@{/help}">Help</a></li>
+            <li><a th:href="@{/logout}">Logout</a></li>
+        </ul>
+    </div>
+</footer>
+</body>
+</html>

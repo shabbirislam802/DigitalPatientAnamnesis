@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome - CT Examination Information</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}"> <!-- Path to CSS file -->
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100%;
+            margin: 0;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f0f2f5;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        header {
+            width: 100%;
+            background: linear-gradient(90deg, #0056b3 0%, #0096c7 100%);
+            padding: 10px 0;
+            text-align: center;
+            color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80px; /* Adjust header height */
+        }
+        .header-container {
+            display: flex;
+            align-items: center;
+        }
+        .header-container .logo {
+            width: 80px; /* Adjust logo width */
+            height: auto;
+            margin-right: 10px; /* Space between logo and title */
+        }
+        .content-container {
+            text-align: left;
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-top: 160px; /* Adjusted for header height */
+            max-width: 800px;
+            width: 100%;
+            color: #333;
+        }
+        .content-container h2 {
+            color: #0056b3;
+            font-size: 2em;
+        }
+        .content-container h3 {
+            color: #333;
+            font-size: 1.5em;
+            margin-top: 20px;
+            cursor: pointer;
+            border-bottom: 2px solid #0056b3;
+            padding-bottom: 5px;
+        }
+        .content-container p {
+            font-size: 1.1em;
+            color: #555;
+            line-height: 1.6;
+        }
+        .question-group {
+            display: none;
+            margin-top: 10px;
+            padding-left: 20px;
+            border-left: 2px solid #0056b3;
+            padding-bottom: 10px;
+        }
+        .question-container {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            font-size: 1.2em;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .button-container button {
+            width: 150px;
+            padding: 15px;
+            text-align: center;
+            font-size: 18px;
+            color: white;
+            background-color: #0056b3;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .button-container button:hover {
+            background-color: #004494;
+        }
+        footer {
+            width: 100%;
+            background-color: #f8f9fa;
+            padding: 10px 0;
+            text-align: center;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .footer-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .footer-container p {
+            margin: 0;
+            color: #777;
+        }
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0 0 0;
+            display: flex;
+            gap: 15px;
+        }
+        .footer-links li {
+            display: inline;
+        }
+        .footer-links a {
+            color: #0056b3;
+            text-decoration: none;
+        }
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="header-container">
+        <img th:src="@{/images/LogoFinal.png}" alt="DIGRAD Logo" class="logo">
+        <h1>DIGRAD DIGital RADiology Anamnesis</h1>
+    </div>
+</header>
+
+<div class="content-container">
+    <h2>Welcome</h2>
+    <p>Your physician has referred you for undergoing a computed tomography (CT) examination. For your information, kindly read the text below and answer the questions that follow. This document has been designed to provide basic information. If you have any other questions, please do not hesitate to ask the medical technical staff or the examining physician.</p>
+
+    <h3 th:onclick="|toggleVisibility('ct-scan')|">What is a computed tomography scan?</h3>
+    <div id="ct-scan" class="question-group">
+        <p>A computed tomography (CT) scan is a special type of X-ray examination used to create cross-sectional images of the body. This allows the collection of important information about the position of the focuses of a disease which is often crucial for the further treatment.</p>
+    </div>
+
+    <h3 th:onclick="|toggleVisibility('procedure')|">What is the procedure like?</h3>
+    <div id="procedure" class="question-group">
+        <p>The examination takes approximately 10 to 20 minutes. In the CT room you will be resting on a special table top which will slowly move through the opening of the CT device during the examination. It is very important that you remain calm during the examination, avoid movements and strictly follow the breathing commands given to you. You will be monitored by specialists throughout the entire procedure.</p>
+    </div>
+
+    <h3 th:onclick="|toggleVisibility('contrast-medium')|">Why is contrast medium being administered?</h3>
+    <div id="contrast-medium" class="question-group">
+        <p>Depending on the examination, it may be necessary to administer a contrast medium injection or infusion into your arm. This may be necessary to illustrate certain organs and anatomical structures of the body and to help recognize pathological alterations. The relevancy of a number of examinations can be enhanced with contrast medium. These contrast media are liquid solutions that contain iodine and show up on x-ray. It is removed from the body through the kidneys, but will not change the color of your urine.</p>
+    </div>
+
+    <h3 th:onclick="|toggleVisibility('iv-contrast')|">What does the IV contrast feel like?</h3>
+    <div id="iv-contrast" class="question-group">
+        <p>As the contrast media circulates through your body, you may experience a cool feeling in your arm followed by a warm or flushed sensation throughout your body. This may be accompanied by a metallic or salty taste. In rare cases, some people may become nauseated. These sensations are normal responses to contrast media and they are temporary.</p>
+    </div>
+
+    <h3 th:onclick="|toggleVisibility('complications')|">Are complications expected?</h3>
+    <div id="complications" class="question-group">
+        <p>Similar to any other injection, tenderness, a hematoma and rarely an infection may occur at the injection site. One of the known reactions to contrast medium includes a sensation of warmth during the injection or bitter taste in the mouth. Intolerability-induced reactions can also occur after the administration of the contrast medium: a minor drop in blood pressure and associated minor complaints as well as nausea or tenderness have been reported in rare cases. Serious adverse reactions such as dyspnoea, sudden drop in blood pressure, arrhythmia or seizures are very rare. In rare cases, the contrast medium exits the injection site in the arm during the infusion of the contrast medium into the vein. This causes painful swelling which may last for several days and requires treatment in some cases. If you feel pain and swelling of the arm during the infusion of the contrast medium, please immediately notify the physician during the examination. Scientific studies indicate that contrast medium is well tolerated by 97% of patients. The incidence of serious adverse reactions is reported to be 0.04 %. Similar to almost any medically indicated diagnostic procedure, a life-threatening complication is possible, albeit highly unlikely.</p>
+    </div>
+
+    <h3 th:onclick="|toggleVisibility('risk-assessment')|">Risk Assessment</h3>
+    <div id="risk-assessment" class="question-group">
+        <p>Therefore, the risk associated with the examination is very low compared to the achieved benefits. However, if any adverse reactions arise, medical care will be available immediately. To be able to evaluate your potentially increased risk for adverse reactions to contrast medium, we ask that you kindly answer the questions provided below by checking the appropriate answer. If you are uncertain about how to answer any of the questions provided below, please seek clarification from the medical technical staff or the physician.</p>
+    </div>
+</div>
+
+<div class="button-container">
+    <button th:onclick="|window.location.href='@{/patient/generalQuestions}'|">Start Questionnaire</button>
+</div>
+
+<footer>
+    <div class="footer-container">
+        <p>&copy; 2024 DIGRAD. All rights reserved.</p>
+        <ul class="footer-links">
+            <li><a th:href="@{/help}">Help</a></li>
+            <li><a th:href="@{/user/signUp}">Sign Up</a></li>
+            <form th:action="@{/user/logout}" method="post">
+                <button type="submit">Abmelden</button>
+            </form>
+        </ul>
+    </div>
+</footer>
+
+<script th:inline="javascript">
+    function toggleVisibility(id) {
+        const element = document.getElementById(id);
+        if (element.style.display === "none" || element.style.display === "") {
+            element.style.display = "block";
+        } else {
+            element.style.display = "none";
+        }
+    }
+</script>
+</body>
+</html>

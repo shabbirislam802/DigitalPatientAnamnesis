@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>General Anamnesis Questionnaire</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #e8f4f8;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        header {
+            width: 100%;
+            background: linear-gradient(90deg, #0056b3 0%, #0096c7 100%);
+            padding: 10px 0;
+            text-align: center;
+            color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+            padding: 0 20px;
+        }
+        .header-container {
+            display: flex;
+            align-items: center;
+        }
+        .header-container .logo {
+            width: 80px;
+            height: auto;
+            margin-right: 10px;
+        }
+        .content-container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-top: 140px;
+            max-width: 600px;
+            width: 100%;
+            text-align: left;
+        }
+        .content-container h2 {
+            color: #004c8c;
+            font-size: 2.2em;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .content-container p {
+            font-size: 1.1em;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .question-container {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            font-size: 1.2em;
+            color: #004c8c;
+            margin-bottom: 5px;
+        }
+        input[type="text"], input[type="number"], select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+            font-size: 1em;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .button-container button {
+            width: 160px;
+            padding: 15px;
+            text-align: center;
+            font-size: 18px;
+            color: white;
+            background-color: #0078d4;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .button-container button:hover {
+            background-color: #005fa3;
+        }
+        .additional-info {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #ffeeba;
+            border-left: 5px solid #ffc107;
+            border-radius: 10px;
+            color: #856404;
+            display: none;
+            font-size: 1em;
+        }
+        footer {
+            width: 100%;
+            background-color: #f8f9fa;
+            padding: 5px 0;
+            text-align: center;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            bottom: 0;
+        }
+        .footer-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .footer-container p {
+            margin: 0 0 5px 0;
+            color: #777;
+        }
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 15px;
+        }
+        .footer-links li {
+            display: inline;
+        }
+        .footer-links a {
+            color: #0056b3;
+            text-decoration: none;
+            font-size: 12px;
+        }
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="header-container">
+        <img th:src="@{/images/LogoFinal.png}" alt="Radiology Anamnesis Logo" class="logo">
+        <h1>Radiology Anamnesis Web Application</h1>
+        <a th:href="@{/user/logout}" class="logout-link" style="color: white; text-decoration: none;">Logout</a>
+    </div>
+</header>
+
+<div class="content-container">
+    <h2>Welcome Patient</h2>
+    <p>Please fill out the following general anamnesis questionnaire carefully.</p>
+    <form th:action="@{/patient/submitGeneralAnamnesis}" th:object="${patient}" method="post">
+        <div class="question-container">
+            <label for="firstname">Patient first name:</label>
+            <input type="text" id="firstname" th:field="*{firstname}" required>
+        </div>
+        <div class="question-container">
+            <label for="lastname">Patient last name:</label>
+            <input type="text" id="lastname" th:field="*{lastname}" required>
+        </div>
+        <div class="question-container">
+            <label for="dateOfBirth">Date of Birth:</label>
+            <input type="date" id="dateOfBirth" th:field="*{dateOfBirth}" required>
+        </div>
+        <div class="question-container">
+            <label for="gender">Gender:</label>
+            <select id="gender" th:field="*{gender}" required>
+                <option value="" disabled selected>Select your gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+        </div>
+        <div class="question-container" id="pregnancy-container" style="display: none;">
+            <label for="pregnancy">Are you pregnant? (No/Yes):</label>
+            <select id="pregnancy" name="pregnancy">
+                <option value="" disabled selected>Select an option</option>
+                <option value="No">No</option>
+                <option value="Yes">Yes</option>
+            </select>
+        </div>
+        <div class="additional-info" id="pregnancy-info">
+            <p><strong>Red flag, absolute contraindication for a CT examination.</strong></p>
+            <p>Computer tomography (CT) involves potential exposure of both mother and fetus to ionising radiation. If accessible in a timely manner, other imaging techniques that do not involve electromagnetic radiation, such as ultrasound or magnetic resonance imaging (MRI), should be considered as a safer alternative to CT imaging during the first trimester of pregnancy.</p>
+            <p>Please discuss the indication for the CT examination with your doctor.</p>
+        </div>
+        <div class="question-container" id="breastfeeding-container" style="display: none;">
+            <label for="breastfeeding">Are you currently breastfeeding? (No/Yes):</label>
+            <select id="breastfeeding" name="breastfeeding">
+                <option value="" disabled selected>Select an option</option>
+                <option value="No">No</option>
+                <option value="Yes">Yes</option>
+            </select>
+        </div>
+        <div class="additional-info" id="breastfeeding-info">
+            <p><strong>Red flag, possible contraindication for contrast medium application.</strong></p>
+            <p>Most manufacturers of intravenous contrast advise that mothers should not breast-feed their babies for 24 to 48 hours after contrast medium is given. Please discuss the indication for the application of the contrast medium with your doctor.</p>
+        </div>
+        <div class="question-container">
+            <label for="bodyWeight">Body weight:</label>
+            <input type="number" id="bodyWeight" th:field="*{bodyWeight}" required>
+        </div>
+        <div class="question-container">
+            <label for="bodyHeight">Body height:</label>
+            <input type="number" id="bodyHeight" th:field="*{bodyHeight}" required>
+        </div>
+        <div class="question-container">
+            <label for="address">Address:</label>
+            <input type="text" id="address" th:field="*{address}" required>
+        </div>
+        <div class="question-container">
+            <label for="telephoneNumber">Telephone Number:</label>
+            <input type="text" id="telephoneNumber" th:field="*{telephoneNumber}" required>
+        </div>
+        <div class="button-container">
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+</div>
+
+<script th:inline="javascript">
+    document.getElementById('gender').addEventListener('change', function() {
+        const gender = this.value.toLowerCase();
+        const pregnancyContainer = document.getElementById('pregnancy-container');
+        const breastfeedingContainer = document.getElementById('breastfeeding-container');
+        if (gender === 'female') {
+            pregnancyContainer.style.display = 'block';
+            breastfeedingContainer.style.display = 'block';
+        } else {
+            pregnancyContainer.style.display = 'none';
+            breastfeedingContainer.style.display = 'none';
+        }
+    });
+
+    document.getElementById('pregnancy').addEventListener('change', function() {
+        const pregnancyInfo = document.getElementById('pregnancy-info');
+        if (this.value === 'Yes') {
+            pregnancyInfo.style.display = 'block';
+        } else {
+            pregnancyInfo.style.display = 'none';
+        }
+    });
+
+    document.getElementById('breastfeeding').addEventListener('change', function() {
+        const breastfeedingInfo = document.getElementById('breastfeeding-info');
+        if (this.value === 'Yes') {
+            breastfeedingInfo.style.display = 'block';
+        } else {
+            breastfeedingInfo.style.display = 'none';
+        }
+    });
+</script>
+</body>
+</html>

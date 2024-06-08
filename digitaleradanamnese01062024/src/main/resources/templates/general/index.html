@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage - DIGRAD</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}"> <!-- Path to CSS file -->
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-image: url('/images/background.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        header {
+            width: 100%;
+            background: linear-gradient(90deg, #0056b3 0%, #0096c7 100%);
+            padding: 10px 0;
+            text-align: center;
+            color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80px; /* Adjust header height */
+        }
+        .header-container {
+            display: flex;
+            align-items: center;
+        }
+        .header-container .logo {
+            width: 80px; /* Adjust logo width */
+            height: auto;
+            margin-right: 10px; /* Space between logo and title */
+        }
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+            padding-top: 60px; /* Adjust padding to move the content up */
+            box-sizing: border-box;
+        }
+        .container {
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+        }
+        .container h1 {
+            font-size: 2em;
+            color: #333;
+        }
+        .slogan {
+            font-size: 1.2em;
+            color: #555;
+            margin-top: 10px;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .button-container a {
+            display: block;
+            width: 150px;
+            padding: 15px;
+            text-align: center;
+            font-size: 18px;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: background-color 0.3s, opacity 0.3s;
+        }
+        .button-container a:hover {
+            opacity: 0.8;
+        }
+        .button-patient {
+            background-color: #007bff;
+        }
+        .button-staff {
+            background-color: #28a745;
+        }
+        footer {
+            width: 100%;
+            background-color: #f8f9fa;
+            padding: 5px 0; /* Reduce padding for a narrower footer */
+            text-align: center;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            bottom: 0;
+        }
+        .footer-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .footer-container p {
+            margin: 0 0 5px 0; /* Add margin bottom to move text closer to hyperlinks */
+            color: #777;
+        }
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 15px;
+        }
+        .footer-links li {
+            display: inline;
+        }
+        .footer-links a {
+            color: #0056b3;
+            text-decoration: none;
+            font-size: 12px; /* Adjust font size */
+        }
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="header-container">
+        <img src="/images/LogoFinal.png" alt="DIGRAD Logo" class="logo">
+        <h1>DIGRAD DIGital RADiology Anamnesis</h1>
+    </div>
+</header>
+
+<div class="main-content">
+    <div class="container">
+        <h1>Welcome to DIGRAD</h1>
+        <div class="slogan">DIGRAD revolutionizes the patient anamnesis process in CT radiology with a cutting-edge digital solution. Fill in your forms wherever you are!</div>
+        <div class="button-container">
+            <a th:href="@{/logIn}" class="button-patient">Login</a>
+            <a th:href="@{/user/signUp}" class="button-staff">Sign up</a>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-container">
+        <p>&copy; 2024 DIGRAD. All rights reserved.</p>
+        <ul class="footer-links">
+            <li><a th:href="@{/help}">Help</a></li>
+            <li><a th:href="@{/user/signUp}">Sign Up</a></li>
+        </ul>
+    </div>
+</footer>
+</body>
+</html>

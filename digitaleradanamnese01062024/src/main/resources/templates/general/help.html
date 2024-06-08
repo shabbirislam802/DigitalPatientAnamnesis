@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radiology Anamnesis Web Application</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <style>
+        .chat-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 300px;
+            max-height: 400px;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-header {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        .chat-body {
+            flex: 1;
+            padding: 10px;
+            overflow-y: auto;
+        }
+        .chat-input-container {
+            display: flex;
+            border-top: 1px solid #ccc;
+        }
+        .chat-input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+        }
+        .chat-send-button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="header-container">
+        <img th:src="@{/images/LogoFinal.png}" alt="Radiology Anamnesis Logo" class="logo">
+        <h1>Radiology Anamnesis Web Application</h1>
+    </div>
+</header>
+
+<div class="content-container">
+    <!-- Your existing content here -->
+</div>
+
+<div class="chat-container" id="chatContainer">
+    <div class="chat-header">
+        Chat with GPT
+    </div>
+    <div class="chat-body" id="chatBody">
+        <!-- Chat messages will appear here -->
+    </div>
+    <div class="chat-input-container">
+        <input type="text" class="chat-input" id="chatInput" placeholder="Type your message...">
+        <button class="chat-send-button" id="sendButton">Send</button>
+    </div>
+</div>
+
+<script>
+    document.getElementById('sendButton').addEventListener('click', function() {
+        const input = document.getElementById('chatInput').value;
+        const chatBody = document.getElementById('chatBody');
+
+        if (input) {
+            // Append user message to chat body
+            const userMessage = document.createElement('div');
+            userMessage.textContent = "You: " + input;
+            chatBody.appendChild(userMessage);
+
+            // Send message to server
+            fetch('/api/chat/message', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ message: input })
+            })
+                .then(response => response.text())
+                .then(data => {
+                    // Append response to chat body
+                    const botMessage = document.createElement('div');
+                    botMessage.textContent = "GPT: " + data;
+                    chatBody.appendChild(botMessage);
+                });
+
+            // Clear input field
+            document.getElementById('chatInput').value = '';
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Specific Questionnaires List - Radiology Anamnesis Web Application</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<header>
+    <div class="header-container">
+        <img src="/images/LogoFinal.png" alt="Radiology Anamnesis Logo" class="logo">
+        <h1>Radiology Anamnesis Web Application</h1>
+    </div>
+</header>
+<main>
+    <div class="content-container">
+        <h2>Specific Questionnaires</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Date</th>
+                <th>Details</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="questionnaire : ${specificQuestionnaires}">
+                <td th:text="${questionnaire.id}"></td>
+                <td><a th:href="@{'/patient/questionnaireDetails/' + ${questionnaire.id}}">View Details</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+<footer>
+    <div class="footer-container">
+        <p>&copy; 2024 Radiology Anamnesis Web Application. All rights reserved.</p>
+        <ul class="footer-links">
+            <li><a href="/help">Help</a></li>
+            <li><a href="/logout">Logout</a></li>
+        </ul>
+    </div>
+</footer>
+</body>
+</html>

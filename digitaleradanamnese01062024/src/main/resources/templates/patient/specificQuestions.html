@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Specific CT and Contrast Medium Anamnesis</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: ghostwhite;
+            height: 100vh;
+            overflow: auto;
+            padding-top: 100px;
+        }
+        header {
+            width: 100%;
+            background: linear-gradient(90deg, #0056b3 0%, #0096c7 100%);
+            padding: 10px 0;
+            text-align: center;
+            color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80px;
+        }
+        .header-container {
+            display: flex;
+            align-items: center;
+        }
+        .header-container .logo {
+            width: 80px;
+            height: auto;
+            margin-right: 10px;
+        }
+        .content-container {
+            text-align: center;
+            background-color: #333;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            margin: 20px auto;
+            max-width: 600px;
+            width: 100%;
+        }
+        .question-container {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            font-size: 1.2em;
+            color: white;
+            margin-bottom: 5px;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .button-container button {
+            width: 150px;
+            padding: 15px;
+            text-align: center;
+            font-size: 18px;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .button-container button:hover {
+            opacity: 0.8;
+        }
+        .additional-info {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #ffcccb;
+            border-radius: 10px;
+            color: black;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="header-container">
+        <img th:src="@{/images/LogoFinal.png}" alt="Radiology Anamnesis Logo" class="logo">
+        <h1>Radiology Anamnesis Web Application</h1>
+        <a th:href="@{/user/logout}" class="logout-link" style="color: white; text-decoration: none; margin-left: auto; margin-right: 20px;">Logout</a>
+    </div>
+</header>
+
+<div class="content-container">
+    <h2>Specific CT and Contrast Medium Anamnesis Questions</h2>
+    <form th:action="@{/patient/submitSpecificAnamnesis}" th:object="${specificAnswers}" method="post">
+        <div class="question-container">
+            <label for="priorCT">Prior computed tomography (CT)? (No/Yes):</label>
+            <select id="priorCT" th:field="*{previousRadiologicalProcedures}" required>
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+            </select>
+        </div>
+        <div class="question-container">
+            <label for="kidneyXRay">Kidney X-rays (i.v. urography)? (No/Yes):</label>
+            <select id="kidneyXRay" th:field="*{kidneyXRay}" required>
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+            </select>
+        </div>
+        <div class="question-container">
+            <label for="legVeinsDepiction">Depiction of the leg veins (phlebography)? (No/Yes):</label>
+            <select id="legVeinsDepiction" th:field="*{legVeinsDepiction}" required>
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+            </select>
+        </div>
+        <div class="question-container">
+            <label for="bloodVesselXRay">Blood vessel X-rays (angiography/cardangiography)? (No/Yes):</label>
+            <select id="bloodVesselXRay" th:field="*{bloodVesselXRay}" required>
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+            </select>
+        </div>
+        <div class="question-container">
+            <label for="priorContrastAgents">Prior application of iodine-containing contrast agents? (No/Yes):</label>
+            <select id="priorContrastAgents" th:field="*{adverseReactions}" required>
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+            </select>
+        </div>
+        <div class="question-container" id="adverseReactions-container" style="display: none;">
+            <label for="adverseReactions">Adverse reactions to contrast medium? (No/Yes):</label>
+            <select id="adverseReactions" th:field="*{adverseReactions}">
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+            </select>
+        </div>
+        <div class="additional-info" id="adverseReactions-info">
+            <p>If yes, which ones?</p>
+            <label for="nausea">Nausea/vomiting/gagging? (No/Yes):</label>
+            <select id="nausea" th:field="*{nausea}">
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+            </select>
+            <label for="asthma">Asthma attack/dyspnoea? (No/Yes):</label>
+            <select id="asthma" th:field="*{asthmaAttack}">
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+            </select>
+            <label for="rash">Skin rash? (No/Yes):</label>
+            <select id="rash" th:field="*{skinRash}">
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+            </select>
+            <label for="seizures">Seizures, unconsciousness? (No/Yes):</label>
+            <select id="seizures" th:field="*{seizures}">
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+            </select>
+            <label for="chills">Chills? (No/Yes):</label>
+            <select id="chills" th:field="*{chills}">
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+            </select>
+        </div>
+        <div class="question-container">
+            <label for="iodineAllergy">Iodine allergy? (No/Yes):</label>
+            <select id="iodineAllergy" th:field="*{iodineAllergy}" required>
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+            </select>
+        </div>
+        <div class="question-container">
+            <label for="diagnosedAsthma">Diagnosed with asthma? (No/Yes):</label>
+            <select id="diagnosedAsthma" th:field="*{diagnosedAsthma}" required>
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+            </select>
+        </div>
+        <div class="question-container">
+            <label for="thyroidGlandDiagnosis">Diagnosed with thyroid gland diseases? (No/Yes):</label>
+            <select id="thyroidGlandDiagnosis" th:field="*{thyroidGlandDiagnosis}" required>
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+            </select>
+        </div>
+        <div class="additional-info" id="thyroidGlandDiagnosis-info">
+            <p>Red flag. Possible contraindication for the CT examination.</p>
+            <p>Please inform your doctor or medical staff and bring your blood test results, including TSH (thyroid stimulating hormone), to the CT examination.</p>
+            <label for="TSHResult">If you can provide the information about your TSH result in mU/l, please write it here (e.g., 1.2):</label>
+            <input type="text" id="TSHResult" th:field="*{TSHResult}">
+        </div>
+        <div class="question-container">
+            <label for="kidneyDisease">Diagnosed with kidney diseases? (No/Yes):</label>
+            <select id="kidneyDisease" th:field="*{kidneyDisease}" required>
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+            </select>
+        </div>
+        <div class="additional-info" id="kidneyDisease-info">
+            <p>Renal insufficiency? (Yes/No):</p>
+            <select id="renalInsufficiency" th:field="*{renalInsufficiency}">
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+            </select>
+            <p>Kidney Transplant? (No/Yes):</p>
+            <select id="kidneyTransplant" th:field="*{kidneyTransplant}">
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+            </select>
+            <p>Dysfunction of the kidneys requiring dialysis? (Yes/No):</p>
+            <select id="kidneyDialysis" th:field="*{kidneyDysfunctionDyalisis}">
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+            </select>
+            <p>Kidney Cancer? (No/Yes):</p>
+            <select id="kidneyCancer" th:field="*{kidneyCancer}">
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+            </select>
+        </div>
+        <div class="question-container">
+            <label for="diabetesMellitus">Diagnosed with Diabetes mellitus? (No/Yes):</label>
+            <select id="diabetesMellitus" th:field="*{diabetesMellitus}" required>
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+            </select>
+        </div>
+        <div class="additional-info" id="diabetesMellitus-info">
+            <label for="metformin">Do you take Metformin? (No/Yes):</label>
+            <select id="metformin" th:field="*{takeMetformin}">
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+            </select>
+            <p>In some cases, patients taking Metformin may be at risk of developing lactic acidosis, especially in the presence of kidney dysfunction. This is a rare but serious complication.</p>
+            <p>The intake of contrast medium should be discontinued 48 hours prior, and if renal function does not deteriorate only after 48 hours, it can be taken again.</p>
+        </div>
+        <div class="question-container">
+            <label for="kahlerDisease">Diagnosed with Kahler’s disease (multiple myeloma)? (No/Yes):</label>
+            <select id="kahlerDisease" th:field="*{kahlersDisease}" required>
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+            </select>
+        </div>
+        <div class="additional-info" id="kahlerDisease-info">
+            <p>Red flag. Possible contrast media contraindication due to multiple myeloma.</p>
+            <p>Please inform your doctor or medical staff.</p>
+            <label for="additionalInfoMyeloma">Would you like to get more information about multiple myeloma being a contraindication? (Yes/No):</label>
+            <select id="additionalInfoMyeloma" th:field="*{additionalInfoMetformin}">
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+            </select>
+            <div id="myeloma-info-details" style="display: none;">
+                <p>Multiple myeloma patients often have hypercalcemia which can increase the risk of kidney damage.</p>
+                <p>Correction of hypercalcemia before contrast medium administration should be discussed with the hematologist.</p>
+            </div>
+        </div>
+        <div class="question-container">
+            <label for="anticoagulantMedication">Anticoagulant medication? (No/Yes):</label>
+            <select id="anticoagulantMedication" th:field="*{anticoagulantMedication}" required>
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+            </select>
+        </div>
+        <div class="question-container">
+            <label for="cardiovascularDiseases">Cardiovascular diseases? (No/Yes):</label>
+            <select id="cardiovascularDiseases" th:field="*{cardiovascularDiseases}" required>
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+            </select>
+        </div>
+        <div class="question-container">
+            <label for="pulmonaryAirwayDisease">Pulmonary/Airway disease? (No/Yes):</label>
+            <select id="pulmonaryAirwayDisease" th:field="*{pulmonaryAirwayDisease}" required>
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+            </select>
+        </div>
+        <div class="question-container">
+            <label for="malignantDisease">Malignant disease? (No/Yes):</label>
+            <select id="malignantDisease" th:field="*{malignantDisease}" required>
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+            </select>
+        </div>
+        <div class="question-container">
+            <label for="otherMetabolicDiseases">Other metabolic diseases? (No/Yes):</label>
+            <select id="otherMetabolicDiseases" th:field="*{metabolicDisease}" required>
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+            </select>
+        </div>
+        <div class="question-container">
+            <label for="liverDisease">Liver disease? (No/Yes):</label>
+            <select id="liverDisease" th:field="*{liverDisease}" required>
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+            </select>
+        </div>
+        <div class="question-container">
+            <label for="gastrointestinalDisease">Gastrointestinal disease? (No/Yes):</label>
+            <select id="gastrointestinalDisease" th:field="*{gastrointestinalDisease}" required>
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+            </select>
+        </div>
+        <div class="question-container">
+            <label for="chemotherapy">Current or prior chemotherapy? (No/Yes):</label>
+            <select id="chemotherapy" th:field="*{chemotherapy}" required>
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+            </select>
+        </div>
+        <div class="question-container">
+            <label for="claustrophobia">Do you have claustrophobia? (No/Yes):</label>
+            <select id="claustrophobia" th:field="*{claustrophobia}" required>
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+            </select>
+        </div>
+        <div class="additional-info" id="claustrophobia-info">
+            <p>Red flag. Possible contraindication for the CT examination.</p>
+            <p>Please inform your doctor or medical staff.</p>
+            <label for="sedativePreferred">Would you like to have the examination carried out with a sedative? (No/Yes):</label>
+            <select id="sedativePreferred" th:field="*{sedativePreferred}">
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+            </select>
+            <label for="preferredSedative">Which form of sedative do you prefer? (psychopax/dormicum/other):</label>
+            <input type="text" id="preferredSedative" th:field="*{preferredSedative}">
+        </div>
+        <div class="question-container">
+            <label for="pacemaker">Are you fitted with a pacemaker (only relevant for patients undergoing chest CT’s)? (No/Yes):</label>
+            <select id="pacemaker" th:field="*{pacemaker}" required>
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+            </select>
+        </div>
+        <div class="additional-info" id="pacemaker-info">
+            <p>Please give your implant (pacemaker) ID-Card to the medical staff.</p>
+            <label for="pacemakerBrand">Brand of the pacemaker:</label>
+            <input type="text" id="pacemakerBrand" th:field="*{pacemakerBrand}">
+            <label for="pacemakerYear">Date of the placement (year):</label>
+            <input type="text" id="pacemakerYear" th:field="*{pacemakerPlacementYear}">
+        </div>
+        <div class="question-container">
+            <label for="metalImplants">Metal implants? (No/Yes):</label>
+            <select id="metalImplants" th:field="*{metalImplants}" required>
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+            </select>
+        </div>
+        <div class="button-container">
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+</div>
+
+<script th:inline="javascript">
+    document.getElementById('priorContrastAgents').addEventListener('change', function() {
+        const adverseReactionsContainer = document.getElementById('adverseReactions-container');
+        if (this.value === 'true') {
+            adverseReactionsContainer.style.display = 'block';
+        } else {
+            adverseReactionsContainer.style.display = 'none';
+        }
+    });
+
+    document.getElementById('adverseReactions').addEventListener('change', function() {
+        const adverseReactionsInfo = document.getElementById('adverseReactions-info');
+        if (this.value === 'true') {
+            adverseReactionsInfo.style.display = 'block';
+        } else {
+            adverseReactionsInfo.style.display = 'none';
+        }
+    });
+
+    document.getElementById('iodineAllergy').addEventListener('change', function() {
+        if (this.value === 'true') {
+            alert("Red flag. Absolute contraindication for contrast media application due to an iodine allergy. Please inform your doctor or medical staff.");
+        }
+    });
+
+    document.getElementById('thyroidGlandDiagnosis').addEventListener('change', function() {
+        const thyroidGlandDiagnosisInfo = document.getElementById('thyroidGlandDiagnosis-info');
+        if (this.value === 'true') {
+            thyroidGlandDiagnosisInfo.style.display = 'block';
+        } else {
+            thyroidGlandDiagnosisInfo.style.display = 'none';
+        }
+    });
+
+    document.getElementById('kidneyDisease').addEventListener('change', function() {
+        const kidneyDiseaseInfo = document.getElementById('kidneyDisease-info');
+        if (this.value === 'true') {
+            kidneyDiseaseInfo.style.display = 'block';
+        } else {
+            kidneyDiseaseInfo.style.display = 'none';
+        }
+    });
+
+    document.getElementById('diabetesMellitus').addEventListener('change', function() {
+        const diabetesMellitusInfo = document.getElementById('diabetesMellitus-info');
+        if (this.value === 'true') {
+            diabetesMellitusInfo.style.display = 'block';
+        } else {
+            diabetesMellitusInfo.style.display = 'none';
+        }
+    });
+
+    document.getElementById('kahlerDisease').addEventListener('change', function() {
+        const kahlerDiseaseInfo = document.getElementById('kahlerDisease-info');
+        if (this.value === 'true') {
+            kahlerDiseaseInfo.style.display = 'block';
+        } else {
+            kahlerDiseaseInfo.style.display = 'none';
+        }
+    });
+
+    document.getElementById('additionalInfoMyeloma').addEventListener('change', function() {
+        const myelomaInfoDetails = document.getElementById('myeloma-info-details');
+        if (this.value === 'true') {
+            myelomaInfoDetails.style.display = 'block';
+        } else {
+            myelomaInfoDetails.style.display = 'none';
+        }
+    });
+
+    document.getElementById('claustrophobia').addEventListener('change', function() {
+        const claustrophobiaInfo = document.getElementById('claustrophobia-info');
+        if (this.value === 'true') {
+            claustrophobiaInfo.style.display = 'block';
+        } else {
+            claustrophobiaInfo.style.display = 'none';
+        }
+    });
+
+    document.getElementById('pacemaker').addEventListener('change', function() {
+        const pacemakerInfo = document.getElementById('pacemaker-info');
+        if (this.value === 'true') {
+            pacemakerInfo.style.display = 'block';
+        } else {
+            pacemakerInfo.style.display = 'none';
+        }
+    });
+</script>
+
+</body>
+</html>

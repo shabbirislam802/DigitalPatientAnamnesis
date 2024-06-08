@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>DIGRAD</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}"> <!-- Path to CSS file -->
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-image: url('/images/background.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        header {
+            width: 100%;
+            background: linear-gradient(90deg, #0056b3 0%, #0096c7 100%);
+            padding: 10px 0;
+            text-align: center;
+            color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80px; /* Adjust header height */
+        }
+        .header-container {
+            display: flex;
+            align-items: center;
+        }
+        .header-container .logo {
+            width: 80px; /* Adjust logo width */
+            height: auto;
+            margin-right: 10px; /* Space between logo and title */
+        }
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px; /* Add padding to ensure visibility of borders */
+            margin-top: 80px; /* Adjusted for header height */
+            width: 100%;
+            box-sizing: border-box; /* Ensure padding is included in the width calculation */
+            overflow: hidden; /* Prevents main from overflowing */
+        }
+        .signup-container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px; /* Maximum width for the container */
+            max-height: 80vh; /* Limit the height of the box */
+            overflow-y: auto; /* Enable vertical scrolling */
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Center content vertically */
+        }
+        .signup-container h2 {
+            color: #004c8c;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .form-group label {
+            font-size: 1.1em;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+            font-size: 1em;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+        .form-group button {
+            width: 100%;
+            padding: 10px;
+            font-size: 1.2em;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .form-group button:hover {
+            background-color: #0056b3;
+        }
+        footer {
+            width: 100%;
+            background-color: #f8f9fa;
+            padding: 5px 0; /* Reduce padding for a narrower footer */
+            text-align: center;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            bottom: 0;
+        }
+        .footer-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .footer-container p {
+            margin: 0 0 5px 0; /* Add margin bottom to move text closer to hyperlinks */
+            color: #777;
+        }
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 15px;
+        }
+        .footer-links li {
+            display: inline;
+        }
+        .footer-links a {
+            color: #0056b3;
+            text-decoration: none;
+            font-size: 12px; /* Adjust font size */
+        }
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<!-- Header Section -->
+<header>
+    <div class="header-container">
+        <img src="/images/LogoFinal.png" alt="DIGRAD Logo" class="logo"> <!-- Path to logo image -->
+        <h1>DIGRAD DIGital RADiology Anamnesis</h1>
+    </div>
+</header>
+<!-- Main Content Section -->
+<main>
+    <div class="signup-container">
+        <h2>SignUp</h2>
+        <form th:action="@{/user/signUp}" method="post">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="confirm-password">Confirm Password:</label>
+                <input type="password" id="confirm-password" name="confirmPassword" required>
+            </div>
+            <div class="form-group">
+                <button type="submit">Sign Up</button>
+            </div>
+        </form>
+        <p>Already have an account? <a th:href="@{/logIn}">Login here</a></p>
+    </div>
+</main>
+
+<!-- Footer Section -->
+<footer>
+    <div class="footer-container">
+        <p>&copy; 2024 DIGRAD. All rights reserved.</p>
+        <ul class="footer-links">
+            <li><a th:href="@{/help}">Help</a></li>
+            <li><a th:href="@{/user/logIn}">Login</a></li>
+        </ul>
+    </div>
+</footer>
+</body>
+</html>

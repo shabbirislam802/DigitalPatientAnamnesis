@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Aftercare - DIGRAD</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100%;
+            margin: 0;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f0f2f5;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        header {
+            width: 100%;
+            background: linear-gradient(90deg, #0056b3 0%, #0096c7 100%);
+            padding: 10px 0;
+            text-align: center;
+            color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80px;
+        }
+        .header-container {
+            display: flex;
+            align-items: center;
+        }
+        .header-container .logo {
+            width: 80px;
+            height: auto;
+            margin-right: 10px;
+        }
+        .content-container {
+            text-align: left;
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-top: 160px;
+            max-width: 800px;
+            width: 100%;
+            color: #333;
+        }
+        .content-container h2 {
+            color: #0056b3;
+            font-size: 2em;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            font-size: 1.2em;
+            color: #333;
+            margin-bottom: 5px;
+            display: block;
+        }
+        .form-group select, .form-group input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+        }
+        .additional-info {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8d7da;
+            border-left: 5px solid #f5c6cb;
+            border-radius: 10px;
+            color: #721c24;
+        }
+        footer {
+            width: 100%;
+            background-color: #f8f9fa;
+            padding: 10px 0;
+            text-align: center;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .footer-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .footer-container p {
+            margin: 0;
+            color: #777;
+        }
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0 0 0;
+            display: flex;
+            gap: 15px;
+        }
+        .footer-links li {
+            display: inline;
+        }
+        .footer-links a {
+            color: #0056b3;
+            text-decoration: none;
+        }
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="header-container">
+        <img th:src="@{/images/LogoFinal.png}" alt="DIGRAD Logo" class="logo">
+        <h1>DIGRAD DIGital RADiology Anamnesis</h1>
+        <a th:href="@{/user/logout}" class="logout-link" style="color: white; text-decoration: none; margin-left: auto; margin-right: 20px;">Logout</a>
+    </div>
+</header>
+
+<div class="content-container">
+    <h2>Patient Aftercare Information</h2>
+    <form th:action="@{/patient/submitAftercare}" th:object="${aftercare}" method="post">
+        <input type="hidden" th:value="${specificAnswerId}" name="specificAnswerId"/>
+        <div class="form-group">
+            <label for="iv-contrast">Did you receive an IV-Contrast Medium Application?</label>
+            <select id="iv-contrast" th:field="*{ivContrast}" required>
+                <option value="" disabled selected>Select an option</option>
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+            </select>
+        </div>
+
+        <div id="aftercare-info" class="additional-info">
+            <p>Drink plenty of liquids, especially water, for 24 hours after your CT scan. Drinking water will help remove the contrast from your body.</p>
+            <p>In the unlikely event that you experience a delayed allergic reaction, such as itchiness, hives, dizziness, trouble breathing, weakness, faintness, or swelling or discomfort in the area where your IV was placed, please contact a doctor within 48 hours after the injection of contrast. Please also inform the CT department so the reaction can be documented.</p>
+
+            <div class="form-group">
+                <label for="extravasation">Have you had IV contrast extravasation?</label>
+                <select id="extravasation" th:field="*{extravasation}">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="false">No</option>
+                    <option value="true">Yes</option>
+                </select>
+            </div>
+
+            <div id="extravasation-info" class="additional-info">
+                <p>Sometimes the vein cannulated for the administration of IV contrast collapses. This causes some of the injected contrast to leak into the surrounding tissue. This is usually absorbed into the tissue with no ill effect. However, if you experience any redness or blistering of your injection site over the next few days, please inform a doctor.</p>
+            </div>
+
+            <div class="form-group">
+                <label for="diabetes">Do you take diabetes medicine?</label>
+                <select id="diabetes" th:field="*{diabetes}">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="false">No</option>
+                    <option value="true">Yes</option>
+                </select>
+            </div>
+
+            <div id="diabetes-info" class="additional-info">
+                <p>Patients on metformin with suspected renal impairment should stop metformin therapy for 48 hours after the injection of IV contrast. Diabetic patients with known or suspected renal impairment should have stopped taking NSAIDS, as stated in the preparation instructions. You may start taking them again tomorrow. Paracetamol is advised as a substitute for pain relief until then. Patients with known severe renal impairment (GFR less than 30 ml/min or serum creatinine over 250) and not on dialysis must have bloods taken to check kidney function following IV contrast injection. A doctor may need to prescribe IV fluids.</p>
+            </div>
+
+            <div class="form-group">
+                <label for="sedative">Did you receive a sedative?</label>
+                <select id="sedative" th:field="*{sedative}">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="false">No</option>
+                    <option value="true">Yes</option>
+                </select>
+            </div>
+
+            <div id="sedative-info" class="additional-info">
+                <p>After the scanning is completed you will still feel a little drowsy. You will be moved onto a stretcher and be observed by a member of staff until you are fully recovered from the sedation. Once you have fully recovered you can get dressed and go home. It is a legal requirement that you do not drive a vehicle for at least 24 hours after being given the sedation. Please do not drink alcohol, sign legal documentation or operate any machinery for at least 24hrs after being given the sedation. Please arrange for someone to stay with you for at least 6hrs after the sedation has been given. If you have any problems after the examination please contact your general practitioner.</p>
+            </div>
+        </div>
+
+        <div class="button-container">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</div>
+
+<footer>
+    <div class="footer-container">
+        <p>&copy; 2024 DIGRAD. All Rights Reserved.</p>
+        <ul class="footer-links">
+            <li><a th:href="@{/help}">Help</a></li>
+            <li><a th:href="@{/user/signUp}">Sign Up</a></li>
+        </ul>
+    </div>
+</footer>
+
+<script th:inline="javascript">
+    document.getElementById('iv-contrast').addEventListener('change', function() {
+        const aftercareInfo = document.getElementById('aftercare-info');
+        aftercareInfo.style.display = this.value === 'true' ? 'block' : 'none';
+    });
+
+    document.getElementById('extravasation').addEventListener('change', function() {
+        const extravasationInfo = document.getElementById('extravasation-info');
+        extravasationInfo.style.display = this.value === 'true' ? 'block' : 'none';
+    });
+
+    document.getElementById('diabetes').addEventListener('change', function() {
+        const diabetesInfo = document.getElementById('diabetes-info');
+        diabetesInfo.style.display = this.value === 'true' ? 'block' : 'none';
+    });
+
+    document.getElementById('sedative').addEventListener('change', function() {
+        const sedativeInfo = document.getElementById('sedative-info');
+        sedativeInfo.style.display = this.value === 'true' ? 'block' : 'none';
+    });
+</script>
+</body>
+</html>
