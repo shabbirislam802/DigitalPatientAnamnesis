@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PatientService {
@@ -47,6 +48,19 @@ public class PatientService {
 
     public Optional<AftercareModel> findAftercareBySpecificAnswerId(Long specificAnswerId) {
         return aftercareRepository.findBySpecificAnswersModel_Id(specificAnswerId);
+    }
+
+    public List<GeneralAnswersModel> findAllPatients() {
+        return generalAnswersRepository.findAll();
+    }
+
+    public List<SpecificAnswersModel> findAllSpecificAnswersWithGeneral() {
+        return specificAnswersRepository.findAll().stream()
+                .collect(Collectors.toList());
+    }
+
+    public GeneralAnswersModel findPatientById(Long id) {
+        return generalAnswersRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid patient ID"));
     }
 
     public GeneralAnswersModel saveOrUpdatePatient(GeneralAnswersModel patient, String username) {

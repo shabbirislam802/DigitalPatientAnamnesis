@@ -17,6 +17,7 @@
             padding: 20px;
             box-sizing: border-box;
         }
+
         header {
             width: 100%;
             background: linear-gradient(90deg, #0056b3 0%, #0096c7 100%);
@@ -32,15 +33,18 @@
             align-items: center;
             height: 80px;
         }
+
         .header-container {
             display: flex;
             align-items: center;
         }
+
         .header-container .logo {
             width: 80px;
             height: auto;
             margin-right: 10px;
         }
+
         .content-container {
             background-color: #ffffff;
             padding: 40px;
@@ -51,16 +55,60 @@
             width: 100%;
             color: #333;
         }
+
         h2 {
             color: #0056b3;
             font-size: 2em;
             text-align: center;
             margin-bottom: 20px;
         }
+
         p {
             font-size: 1.2em;
             margin-bottom: 15px;
         }
+
+        .comment-container {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .comment-container textarea {
+            margin-left: 20px;
+            width: 100%;
+            padding: 10px;
+            font-size: 1em;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+            resize: vertical;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .button-container button {
+            width: 160px;
+            padding: 15px;
+            text-align: center;
+            font-size: 18px;
+            color: white;
+            background-color: #0078d4;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .button-container button:hover {
+            background-color: #005fa3;
+        }
+
         footer {
             width: 100%;
             background-color: #f8f9fa;
@@ -68,15 +116,18 @@
             text-align: center;
             box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
         }
+
         .footer-container {
             display: flex;
             flex-direction: column;
             align-items: center;
         }
+
         .footer-container p {
             margin: 0;
             color: #777;
         }
+
         .footer-links {
             list-style: none;
             padding: 0;
@@ -84,13 +135,16 @@
             display: flex;
             gap: 15px;
         }
+
         .footer-links li {
             display: inline;
         }
+
         .footer-links a {
             color: #0056b3;
             text-decoration: none;
         }
+
         .footer-links a:hover {
             text-decoration: underline;
         }
@@ -105,6 +159,7 @@
 </header>
 <main>
     <div class="content-container">
+        <h2>Questionnaire Details</h2>
         <h2>General Questions</h2>
         <p><strong>First Name:</strong> <span th:text="${generalAnswers.firstname}"></span></p>
         <p><strong>Last Name:</strong> <span th:text="${generalAnswers.lastname}"></span></p>
@@ -117,16 +172,21 @@
 
         <h2>Specific Questions</h2>
         <p><strong>Medical History:</strong> <span th:text="${specificAnswers.medicalHistory}"></span></p>
-        <p><strong>Previous Radiological Procedures:</strong> <span th:text="${specificAnswers.previousRadiologicalProcedures}"></span></p>
+        <p><strong>Previous Radiological Procedures:</strong> <span
+                th:text="${specificAnswers.previousRadiologicalProcedures}"></span></p>
         <p><strong>Known Allergies:</strong> <span th:text="${specificAnswers.knownAllergies}"></span></p>
-        <p><strong>Anticoagulant Medication:</strong> <span th:text="${specificAnswers.anticoagulantMedication}"></span></p>
+        <p><strong>Anticoagulant Medication:</strong> <span th:text="${specificAnswers.anticoagulantMedication}"></span>
+        </p>
         <p><strong>Metal Implants:</strong> <span th:text="${specificAnswers.metalImplants}"></span></p>
-        <p><strong>Cardiovascular Diseases:</strong> <span th:text="${specificAnswers.cardiovascularDiseases}"></span></p>
-        <p><strong>Pulmonary Airway Disease:</strong> <span th:text="${specificAnswers.pulmonaryAirwayDisease}"></span></p>
+        <p><strong>Cardiovascular Diseases:</strong> <span th:text="${specificAnswers.cardiovascularDiseases}"></span>
+        </p>
+        <p><strong>Pulmonary Airway Disease:</strong> <span th:text="${specificAnswers.pulmonaryAirwayDisease}"></span>
+        </p>
         <p><strong>Malignant Disease:</strong> <span th:text="${specificAnswers.malignantDisease}"></span></p>
         <p><strong>Metabolic Disease:</strong> <span th:text="${specificAnswers.metabolicDisease}"></span></p>
         <p><strong>Liver Disease:</strong> <span th:text="${specificAnswers.liverDisease}"></span></p>
-        <p><strong>Gastrointestinal Disease:</strong> <span th:text="${specificAnswers.gastrointestinalDisease}"></span></p>
+        <p><strong>Gastrointestinal Disease:</strong> <span th:text="${specificAnswers.gastrointestinalDisease}"></span>
+        </p>
         <p><strong>Chemotherapy:</strong> <span th:text="${specificAnswers.chemotherapy}"></span></p>
         <p><strong>Pregnant:</strong> <span th:text="${specificAnswers.pregnant}"></span></p>
         <p><strong>Breastfeeding:</strong> <span th:text="${specificAnswers.breastfeeding}"></span></p>
@@ -134,8 +194,10 @@
         <p><strong>Leg Veins Depiction:</strong> <span th:text="${specificAnswers.legVeinsDepiction}"></span></p>
         <p><strong>Blood Vessel X-Ray:</strong> <span th:text="${specificAnswers.bloodVesselXRay}"></span></p>
         <p><strong>Adverse Reactions:</strong> <span th:text="${specificAnswers.adverseReactions}"></span></p>
-        <p><strong>Adverse Reactions Details:</strong> <span th:text="${specificAnswers.adverseReactionsDetails}"></span></p>
-        <p><strong>Prior Allergic Reaction:</strong> <span th:text="${specificAnswers.priorAllergicReaction}"></span></p>
+        <p><strong>Adverse Reactions Details:</strong> <span
+                th:text="${specificAnswers.adverseReactionsDetails}"></span></p>
+        <p><strong>Prior Allergic Reaction:</strong> <span th:text="${specificAnswers.priorAllergicReaction}"></span>
+        </p>
         <p><strong>Nausea:</strong> <span th:text="${specificAnswers.nausea}"></span></p>
         <p><strong>Asthma Attack:</strong> <span th:text="${specificAnswers.asthmaAttack}"></span></p>
         <p><strong>Skin Rash:</strong> <span th:text="${specificAnswers.skinRash}"></span></p>
@@ -143,23 +205,29 @@
         <p><strong>Chills:</strong> <span th:text="${specificAnswers.chills}"></span></p>
         <p><strong>Diagnosed Asthma:</strong> <span th:text="${specificAnswers.diagnosedAsthma}"></span></p>
         <p><strong>Iodine Allergy:</strong> <span th:text="${specificAnswers.iodineAllergy}"></span></p>
-        <p><strong>Thyroid Gland Diagnosis:</strong> <span th:text="${specificAnswers.thyroidGlandDiagnosis}"></span></p>
+        <p><strong>Thyroid Gland Diagnosis:</strong> <span th:text="${specificAnswers.thyroidGlandDiagnosis}"></span>
+        </p>
         <p><strong>TSH Result:</strong> <span th:text="${specificAnswers.TSHResult}"></span></p>
         <p><strong>Diabetes Mellitus:</strong> <span th:text="${specificAnswers.diabetesMellitus}"></span></p>
         <p><strong>Take Metformin:</strong> <span th:text="${specificAnswers.takeMetformin}"></span></p>
-        <p><strong>Additional Info Metformin:</strong> <span th:text="${specificAnswers.additionalInfoMetformin}"></span></p>
+        <p><strong>Additional Info Metformin:</strong> <span
+                th:text="${specificAnswers.additionalInfoMetformin}"></span></p>
         <p><strong>Kidney Disease:</strong> <span th:text="${specificAnswers.kidneyDisease}"></span></p>
         <p><strong>Renal Insufficiency:</strong> <span th:text="${specificAnswers.renalInsufficiency}"></span></p>
         <p><strong>Kidney Transplant:</strong> <span th:text="${specificAnswers.kidneyTransplant}"></span></p>
-        <p><strong>Kidney Dysfunction Dialysis:</strong> <span th:text="${specificAnswers.kidneyDysfunctionDyalisis}"></span></p>
+        <p><strong>Kidney Dysfunction Dialysis:</strong> <span
+                th:text="${specificAnswers.kidneyDysfunctionDyalisis}"></span></p>
         <p><strong>Kidney Cancer:</strong> <span th:text="${specificAnswers.kidneyCancer}"></span></p>
         <p><strong>Creatinine Result:</strong> <span th:text="${specificAnswers.creatinineResult}"></span></p>
-        <p><strong>Additional Info Creatinine:</strong> <span th:text="${specificAnswers.additionalInfoCreatinine}"></span></p>
+        <p><strong>Additional Info Creatinine:</strong> <span
+                th:text="${specificAnswers.additionalInfoCreatinine}"></span></p>
         <p><strong>Kahler's Disease:</strong> <span th:text="${specificAnswers.kahlersDisease}"></span></p>
-        <p><strong>Diagnosed Thyroid Disease:</strong> <span th:text="${specificAnswers.diagnosedThyroidDisease}"></span></p>
+        <p><strong>Diagnosed Thyroid Disease:</strong> <span
+                th:text="${specificAnswers.diagnosedThyroidDisease}"></span></p>
         <p><strong>Pacemaker:</strong> <span th:text="${specificAnswers.pacemaker}"></span></p>
         <p><strong>Pacemaker Brand:</strong> <span th:text="${specificAnswers.pacemakerBrand}"></span></p>
-        <p><strong>Pacemaker Placement Year:</strong> <span th:text="${specificAnswers.pacemakerPlacementYear}"></span></p>
+        <p><strong>Pacemaker Placement Year:</strong> <span th:text="${specificAnswers.pacemakerPlacementYear}"></span>
+        </p>
         <p><strong>Claustrophobia:</strong> <span th:text="${specificAnswers.claustrophobia}"></span></p>
 
         <h2>Aftercare Information</h2>
@@ -170,12 +238,23 @@
             <strong>Sedative:</strong> <span th:text="${aftercare.sedative}"></span>
         </p>
         <p th:if="${aftercare == null}">No aftercare information available.</p>
-        <div th:each="comment : ${comments}">
-            <div class="comment-box">
-                <p th:text="${comment.content}"></p>
-                <p>Date: <span th:text="${comment.timestamp}"></span></p>
-            </div>
+    </div>
+
+    <div th:each="comment : ${comments}">
+        <div class="comment-box">
+            <p th:text="${comment.content}"></p>
+            <p>Date: <span th:text="${comment.timestamp}"></span></p>
         </div>
+    </div>
+    </div>
+    <div class="content-container">
+
+        <form th:action="@{/staff/saveComments}" method="post">
+            <textarea name="commentContent" placeholder="Enter your comment here..."></textarea>
+            <input type="hidden" name="specificAnswersId" th:value="${specificAnswers.id}"/>
+            <button type="submit">Submit Comment</button>
+        </form>
+
     </div>
 </main>
 <footer>
@@ -187,42 +266,5 @@
         </ul>
     </div>
 </footer>
-<script type="importmap">
-    {
-      "imports": {
-        "@google/generative-ai": "https://esm.run/@google/generative-ai"
-      }
-    }
-</script>
-<script type="module">
-    import { GoogleGenerativeAI } from "@google/generative-ai";
-
-    // Fetch your API_KEY
-    const API_KEY = ""
-
-    ;
-    // Reminder: This should only be for local testing
-
-    // Access your API key (see "Set up your API key" above)
-    const genAI = new GoogleGenerativeAI(API_KEY);
-
-    // ...
-
-    // The Gemini 1.5 models are versatile and work with most use cases
-    async function run() {
-        // The Gemini 1.5 models are versatile and work with both text-only and multimodal prompts
-        const model = genAI.getGenerativeModel({ model: "gemini-1.0-pro"});
-        const content = document.querySelector('.content-container').innerHTML;
-
-        const prompt = "\nAnalysiere den HTML Inhalt und gib mir eine zusammenfassung darüber."
-
-        const result = await model.generateContent(content + prompt);
-        const response = await result.response;
-        const text = response.text();
-        console.log(text);
-    }
-
-    run();
-</script>
 </body>
 </html>

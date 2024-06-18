@@ -1,9 +1,11 @@
 package at.ac.fhwn.group6.DigitaleRADAnamnese.controller.web;
 
 import at.ac.fhwn.group6.DigitaleRADAnamnese.model.AftercareModel;
+import at.ac.fhwn.group6.DigitaleRADAnamnese.model.CommentModel;
 import at.ac.fhwn.group6.DigitaleRADAnamnese.model.GeneralAnswersModel;
 import at.ac.fhwn.group6.DigitaleRADAnamnese.model.SpecificAnswersModel;
 import at.ac.fhwn.group6.DigitaleRADAnamnese.services.PatientService;
+import at.ac.fhwn.group6.DigitaleRADAnamnese.services.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -19,10 +21,13 @@ import java.util.Optional;
 public class PatientController {
 
     private final PatientService patientService;
+    private final StaffService staffService;
+
 
     @Autowired
-    public PatientController(PatientService patientService) {
+    public PatientController(PatientService patientService, StaffService staffService) {
         this.patientService = patientService;
+        this.staffService = staffService;
     }
 
     @GetMapping("/welcome")
@@ -122,8 +127,11 @@ public class PatientController {
         if (specificAnswers.isPresent()) {
             SpecificAnswersModel specificAnswersModel = specificAnswers.get();
             GeneralAnswersModel generalAnswersModel = specificAnswersModel.getPatientModel();
+            List<CommentModel> comments = staffService.findCommentsBySpecificAnswersId(specificAnswersModel.getId());
+
             model.addAttribute("generalAnswers", generalAnswersModel);
             model.addAttribute("specificAnswers", specificAnswersModel);
+            model.addAttribute("comments", comments);
 
             Optional<AftercareModel> aftercare = patientService.findAftercareBySpecificAnswerId(id);
             model.addAttribute("aftercare", aftercare.orElse(null));

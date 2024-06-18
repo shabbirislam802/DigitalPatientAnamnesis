@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin User Management</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f0f2f5;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        header {
+            width: 100%;
+            background: linear-gradient(90deg, #0056b3 0%, #0096c7 100%);
+            padding: 10px 0;
+            text-align: center;
+            color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80px;
+        }
+        .header-container {
+            display: flex;
+            align-items: center;
+        }
+        .header-container .logo {
+            width: 80px;
+            height: auto;
+            margin-right: 10px;
+        }
+        .content-container {
+            text-align: left;
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-top: 140px;
+            max-width: 800px;
+            width: 100%;
+            color: #333;
+        }
+        .content-container h2 {
+            color: #0056b3;
+            font-size: 2em;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f8f9fa;
+        }
+        a {
+            color: #0056b3;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .button-container button {
+            width: 150px;
+            padding: 15px;
+            text-align: center;
+            font-size: 18px;
+            color: white;
+            background-color: #0056b3;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .button-container button:hover {
+            background-color: #004494;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="header-container">
+        <img th:src="@{/images/LogoFinal.png}" alt="Radiology Anamnesis Logo" class="logo">
+        <h1>Admin User Management</h1>
+    </div>
+</header>
+
+<div class="content-container">
+    <h2>Manage Users</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Username</th>
+            <th>Role</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.username}"></td>
+            <td th:text="${user.role}"></td>
+            <td>
+                <a href="#" th:onclick="'javascript:resetPassword(' + ${user.id} + ');'">Reset Password</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="button-container">
+        <button onclick="showCreateStaffModal()">Create New Staff</button>
+    </div>
+</div>
+
+<!-- Modal for creating new staff -->
+<div id="createStaffModal" style="display: none;">
+    <div>
+        <h2>Create New Staff</h2>
+        <form id="createStaffForm" th:action="@{/admin/create-staff}" method="post">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <div class="button-container">
+                <button type="submit">Create</button>
+                <button type="button" onclick="hideCreateStaffModal()">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function showCreateStaffModal() {
+        document.getElementById('createStaffModal').style.display = 'block';
+    }
+
+    function hideCreateStaffModal() {
+        document.getElementById('createStaffModal').style.display = 'none';
+    }
+</script>
+</body>
+</html>

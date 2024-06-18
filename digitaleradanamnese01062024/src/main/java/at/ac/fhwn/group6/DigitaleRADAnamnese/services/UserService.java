@@ -1,5 +1,6 @@
 package at.ac.fhwn.group6.DigitaleRADAnamnese.services;
 
+import at.ac.fhwn.group6.DigitaleRADAnamnese.enums.RoleEnum;
 import at.ac.fhwn.group6.DigitaleRADAnamnese.model.UserModel;
 import at.ac.fhwn.group6.DigitaleRADAnamnese.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -23,11 +25,6 @@ public class UserService implements UserDetailsService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    /**
-     *
-     * @param user
-     * @return
-     */
     public UserModel createUser(UserModel user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
@@ -48,5 +45,14 @@ public class UserService implements UserDetailsService {
                 .password(user.getPassword())
                 .roles(user.getRole().name())
                 .build();
+    }
+
+    public List<UserModel> findAllUsersByRole(String role) {
+        try {
+            RoleEnum roleEnum = RoleEnum.valueOf(role.toUpperCase());
+            return userRepository.findByRole(roleEnum);
+        } catch (IllegalArgumentException e) {
+            throw new RuntimeException("Invalid role: " + role);
+        }
     }
 }

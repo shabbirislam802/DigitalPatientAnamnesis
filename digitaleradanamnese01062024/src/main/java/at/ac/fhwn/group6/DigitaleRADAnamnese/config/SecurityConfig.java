@@ -28,13 +28,27 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
                                 .requestMatchers("/", "/help", "/user/logIn", "/user/signUp", "/js/**", "/css/**", "/images/**", "/h2-console/**").permitAll()
+                                .requestMatchers("/admin/**").hasRole("ADMIN")
+                                .requestMatchers("/staff/**").hasRole("STAFF")
+                                .requestMatchers("/patient/**").hasRole("PATIENT")
                                 .anyRequest().authenticated()
                 )
                 .formLogin(formLogin ->
                         formLogin
                                 .loginPage("/user/logIn")
                                 .loginProcessingUrl("/user/logIn")
-                                .defaultSuccessUrl("/patient/welcome", true)
+                                .successHandler((request, response, authentication) -> {
+                                    var authorities = authentication.getAuthorities();
+                                    if (authorities.stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+                                        response.sendRedirect("/admin/user-management");
+                                    } else if (authorities.stream().anyMatch(a -> a.getAuthority().equals("ROLE_STAFF"))) {
+                                        response.sendRedirect("/staff/welcome");
+                                    } else if (authorities.stream().anyMatch(a -> a.getAuthority().equals("ROLE_PATIENT"))) {
+                                        response.sendRedirect("/patient/welcome");
+                                    } else {
+                                        response.sendRedirect("/"); // Standard Redirect, falls keine passenden Rollen vorhanden sind
+                                    }
+                                })
                                 .failureUrl("/user/logIn?error=true")
                                 .permitAll()
                 )
@@ -55,6 +69,7 @@ public class SecurityConfig {
                 );
         return http.build();
     }
+
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
